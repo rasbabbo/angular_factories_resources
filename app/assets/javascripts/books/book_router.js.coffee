@@ -11,7 +11,14 @@ class Router
       when "/",
         templateUrl: "/book_templates",
         controller: "BooksCtrl as books"
+      .when "/books",
+      	templateUrl: "/book_templates",
+        controller: "BooksCtrl as books"
 
     @locationProvider.html5Mode(true)
 
 BookRouter.config(["$routeProvider", "$locationProvider", Router])
+
+BookRounter.config ["$httpProvider", ($httpProvider) ->
+	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+]
